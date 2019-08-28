@@ -1,0 +1,19 @@
+{
+  "name": "typescript-backend-quickstarter",
+  "author": "creco",
+  "description": "creco's typescript quick starter",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "ts-node -r tsconfig-paths/register main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/knex": "^0.16.1",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "tsconfig-paths": "^3.8.0"
+  }
+}
