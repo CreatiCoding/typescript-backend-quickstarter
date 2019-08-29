@@ -1,0 +1,5 @@
+{
+  "admin": ["/user:GET", "/user:POST", "/user/list:GET", "/user/list:POST"],
+  "manager": ["/user:GET", "/user:POST", "/user/list:GET", "/user/list:POST"],
+  "guest": ["/login:GET", "/login:POST", "/forbidden:GET"]
+}

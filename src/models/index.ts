@@ -1,8 +1,7 @@
+import { UserModel } from "@/models/user/user";
+
 export class Models {
-  greeting: string;
-  constructor(message: string) {
-    this.greeting = message;
-  }
+  constructor(private greeting: string) {}
   greet() {
     return "Hello, " + this.greeting;
   }

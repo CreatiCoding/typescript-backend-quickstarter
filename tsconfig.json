@@ -2,11 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@libs/*": ["libs/*"],
+      "@res/*": ["res/*"]
     },
     "target": "es5",
     "module": "commonjs",
-    "lib": ["dom", "es5", "es6"]
+    "lib": ["dom", "es5", "es6"],
+    "resolveJsonModule": true
   },
   "rules": {
     "semicolon": true

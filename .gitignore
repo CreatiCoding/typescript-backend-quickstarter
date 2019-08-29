@@ -1,3 +1,7 @@
+#custom
+key/
+docker/*/data
+
 # Logs
 logs
 *.log

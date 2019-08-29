@@ -1,9 +1,9 @@
+import { UserController } from "@/modules/user";
+import * as Router from "koa-router";
+import { DB } from "@libs/db";
+
 export class Modules {
-  greeting: string;
-  constructor(message: string) {
-    this.greeting = message;
-  }
-  greet() {
-    return "Hello, " + this.greeting;
+  constructor(private router: Router, private db: DB) {
+    const user_controller = new UserController(router, db);
   }
 }

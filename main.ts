@@ -1,19 +1,14 @@
-import { Modules } from "@/modules";
-import { Services } from "@/services";
-import { Domains } from "@/domains";
-import { Models } from "@/models";
 import { Server } from "@/server";
-import { DB } from "@/libs/db";
+import * as Koa from "koa";
+import * as Router from "koa-router";
+import { DB } from "@libs/db";
+import { RedisACL } from "@libs/redis";
 
 const server = new Server(
-  new Modules("asd"),
-  new Services("asd"),
-  new Domains("asd"),
-  new Models("asd")
+  new Koa(),
+  new Router(),
+  new DB(),
+  new RedisACL("1234")
 );
 
-console.log(server);
-console.log(server.modules);
-
-const db = new DB();
-console.log(db);
+server.run();
