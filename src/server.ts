@@ -2,17 +2,18 @@ import { Modules } from "@/modules";
 import { Services } from "@/services";
 import { Domains } from "@/domains";
 import { Models } from "@/models";
-import { Middlewares } from "@/middlewares";
-
+import { AuthMiddleware } from "@/middlewares/auth";
 import * as Koa from "koa";
 import * as Router from "koa-router";
+import * as serve from "koa-static";
+import * as mount from "koa-mount";
+
 import { DB } from "@libs/db";
 import { RedisACL } from "@libs/redis";
 
 import * as acl from "@res/acl.json";
 
 export class Server {
-  private middlewares: Middlewares;
   constructor(
     private app: Koa = null,
     private router: Router = null,
@@ -23,13 +24,14 @@ export class Server {
     const services: Services = new Services("Asd");
     const domains: Domains = new Domains("Asd");
     const models: Models = new Models("Asd");
-    this.middlewares = new Middlewares(redis_acl);
   }
   async run() {
-    const { app, router, middlewares } = this;
+    const { app, router, redis_acl } = this;
     const routes = router.routes();
     const allowed_methods = router.allowedMethods();
     const PORT = 8080;
+    const public_list = ["/user", "/user/list", "/login", "/forbidden"];
+    const auth = new AuthMiddleware(redis_acl, public_list);
 
     // For acl dev
     await this.redis_acl.reset();
@@ -37,7 +39,9 @@ export class Server {
       await this.redis_acl.load(acl);
     }
 
-    app.use(middlewares.auth);
+    // app.use(mount("/public", serve("../public")));
+    // app.use(mount("/web", serve("./public")));
+    app.use(auth.use.bind(auth));
     app.use(routes);
     app.use(allowed_methods);
 

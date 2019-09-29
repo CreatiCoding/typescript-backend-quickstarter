@@ -6,20 +6,17 @@ type next = () => Promise<any>;
 
 const ROLE_GUEST = "guest";
 export class AuthMiddleware {
-  constructor(private redis_acl: RedisACL) {}
+  constructor(private redis_acl: RedisACL, private public_list: String[]) {}
 
   async use(ctx: ctx, next: next) {
     const { path } = ctx;
     const { method } = ctx.req;
-    const { role = ROLE_GUEST } = ctx.state.user
-      ? ctx.state.user
-      : { role: ROLE_GUEST };
-    if (!(await this.redis_acl.existAPI(path, method))) {
-      ctx.throw(404, "Not Found", {
-        message: "페이지를 찾을 수 없습니다."
-      });
-      return;
+    const { role } = ctx.state.user || { role: ROLE_GUEST };
+
+    if (this.public_list && this.public_list.indexOf(path) !== -1) {
+      return await next();
     }
+
     if (!(await this.redis_acl.isAllow(role, path, method))) {
       if (role === ROLE_GUEST) {
         ctx.throw(401, "Unauthorized", {

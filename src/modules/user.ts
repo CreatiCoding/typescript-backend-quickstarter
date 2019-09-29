@@ -8,18 +8,17 @@ export class UserController {
     this.router.get("/user", ctx => {
       ctx.body = { status_code: 200 };
     });
-    this.router.get("/user/list", this.findUserList);
+    this.router.get("/user/list", ctx => {
+      ctx.body = {
+        status_code: 200,
+        data: user_list
+      };
+    });
     this.router.get("/login", ctx => {
       ctx.body = { status_code: 200 };
     });
     this.router.get("/forbidden", ctx => {
       ctx.body = { status_code: 200 };
     });
-  }
-  findUserList(ctx) {
-    ctx.body = {
-      status_code: 200,
-      data: user_list
-    };
   }
 }
