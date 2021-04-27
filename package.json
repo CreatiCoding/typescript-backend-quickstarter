@@ -23,7 +23,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "mysql": "^2.17.1",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "ts-node-dev": "^1.0.0-pre.42",
     "typescript": "^3.6.2"
   },
